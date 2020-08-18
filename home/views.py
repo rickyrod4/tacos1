@@ -61,6 +61,9 @@ def favorites(request):
 def checkout(request):
     context = {
         'user' : User.objects.get(id = request.session['user_id']),
+        'taco' : Taco.objects.get(id = request.session['taco_id']),
+        'order' : Order.objects.get(id = request.session['order_id'])
+
     }
     return render(request, 'checkout.html', context)
 
@@ -80,9 +83,19 @@ def taco(request):
         if not this_taco:
             return redirect('/dashboard')
         else:
-            quantity = request.POST['quantity']
-            total_cost = quantity*this_taco[0].price
-            Order.objects.create(quantity_ordered = quantity, total_price =total_cost,ordered_by = user)
+            request.session['taco_id'] = this_taco[0].id
+            quantity = int(request.POST['quantity'])
+            total_cost = quantity*(float(this_taco[0].price))
+            myOrder =Order.objects.create(quantity_ordered = quantity, total_price =total_cost,ordered_by = user)
+            request.session['order_id'] = myOrder.id
             return redirect('/checkout')
     else: 
         return redirect('/')
+
+def success(request):
+    context = {
+        'user' : User.objects.get(id = request.session['user_id']),
+        'taco' : Taco.objects.get(id = request.session['taco_id']),
+        'order' : Order.objects.get(id = request.session['order_id'])
+    }
+    return render(request, 'success.html', context)

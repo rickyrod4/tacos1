@@ -106,7 +106,8 @@ class User(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=255)
     #tacos_ordered
-
+    #favorite_taco
+    #taco_History
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -115,6 +116,8 @@ class User(models.Model):
 class Taco(models.Model):
     taco_type = models.CharField(max_length=255)
     price = models.DecimalField(decimal_places=2, max_digits=5)
+    tacos_for = models.ForeignKey(User, related_name='taco_history', on_delete=models.CASCADE)
+    favorite = models.ForeignKey(User, related_name='favorite_taco', on_delete=models.CASCADE, default = None)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -123,6 +126,7 @@ class Order(models.Model):
     quantity_ordered = models.IntegerField()
     total_price = models.DecimalField(decimal_places=2, max_digits=5)
     ordered_by = models.ForeignKey(User, related_name='tacos_ordered', on_delete=models.CASCADE, default = None)
+    
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True) 

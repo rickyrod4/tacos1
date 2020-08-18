@@ -12,5 +12,6 @@ urlpatterns = [
     path('checkout', views.checkout),
     path('updateInfo', views.updateInfo),
     path('taco', views.taco),
-    path('logout',views.logout)
+    path('logout',views.logout),
+    path('success',views.success)
 ]
