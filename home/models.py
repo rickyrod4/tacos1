@@ -1,7 +1,9 @@
 from django.db import models
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm 
+from .forms import SignUpForm
 from django.contrib.auth.models import User
+import re
 
 #Email Regex101
 EMAIL_MATCH = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
