@@ -11,7 +11,6 @@ EMAIL_MATCH = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class Order(models.Model):
     #tacos_on_order - Taco(model)
-    quantity_ordered = models.IntegerField()
     total_price = models.DecimalField(decimal_places=2, max_digits=5)
     ordered_by = models.ForeignKey(User, related_name='tacos_ordered', on_delete=models.CASCADE, default = None)
     
@@ -23,11 +22,12 @@ class Order(models.Model):
 class Taco(models.Model):
     #ingredients - Ingredient(model)
     tortilla_choices = [
-        ('flour'),
-        ('corn'),
+        ('flour', 'Flour'),
+        ('corn', 'Corn'),
     ]
     tortilla = models.CharField(max_length = 10, choices = tortilla_choices, default = 'flour')
     taco_price = models.DecimalField(decimal_places=2, max_digits=5)
+    quantity_ordered = models.IntegerField()
 
     order = models.ForeignKey(Order, related_name='tacos_on_order', on_delete=models.CASCADE)
 
@@ -38,19 +38,19 @@ class Taco(models.Model):
 
 class Ingredient(models.Model):
     ingredient_choices = [
-        ('egg'),
-        ('potato'),
-        ('bean'),
-        ('cheese'),
-        ('carne asada'),
-        ('chicken fajita'),
-        ('beef fajita'),
-        ('pastor'),
-        ('barbacoa'),
-        ('lengua'),
-        ('bacon'),
-        ('nopales'),
-        ('sausage'),
+        ('egg', 'Egg'),
+        ('potato', 'Potato'),
+        ('bean', 'Bean'),
+        ('cheese', 'Cheese'),
+        ('carne asada', 'Carne Asada'),
+        ('chicken fajita', 'Chicken Fajita'),
+        ('beef fajita', 'Beef Fajita'),
+        ('pastor', 'Pastor'),
+        ('barbacoa', 'Barbacoa'),
+        ('lengua', 'Lengua'),
+        ('bacon', 'Nacon'),
+        ('nopales', 'Nopales'),
+        ('sausage', 'Sausage'),
     ]
 
     ingredient = models.CharField(max_length = 255, choices = ingredient_choices)
