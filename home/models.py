@@ -12,7 +12,11 @@ EMAIL_MATCH = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class Order(models.Model):
     #tacos_on_order - Taco(model)
     total_price = models.DecimalField(decimal_places=2, max_digits=5)
+<<<<<<< HEAD
     ordered_by = models.ForeignKey(User, related_name='tacos_ordered', on_delete=models.CASCADE, null = True)
+=======
+    ordered_by = models.ForeignKey(User, related_name='tacos_ordered', on_delete=models.CASCADE, default = None)
+>>>>>>> 43999b2f992eea9c46e7bb4d1feaca9110a228cc
     
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -29,7 +33,11 @@ class Taco(models.Model):
     taco_price = models.DecimalField(decimal_places=2, max_digits=5)
     quantity_ordered = models.IntegerField()
 
+<<<<<<< HEAD
     order = models.ForeignKey(Order, related_name='tacos_on_order', on_delete=models.CASCADE, null = True)
+=======
+    order = models.ForeignKey(Order, related_name='tacos_on_order', on_delete=models.CASCADE)
+>>>>>>> 43999b2f992eea9c46e7bb4d1feaca9110a228cc
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -55,13 +63,21 @@ class Ingredient(models.Model):
 
     ingredient = models.CharField(max_length = 255, choices = ingredient_choices)
     ingredient_price = models.DecimalField(decimal_places=2, max_digits=5)
+<<<<<<< HEAD
     taco = models.ForeignKey(Taco, related_name='ingredients', on_delete=models.CASCADE, null = True)
+=======
+    taco = models.ForeignKey(Taco, related_name='ingredients', on_delete=models.CASCADE)
+>>>>>>> 43999b2f992eea9c46e7bb4d1feaca9110a228cc
 
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
     def __str__(self):
+<<<<<<< HEAD
         return self.ingredient
+=======
+        return self.ingredient + ' $' + self.ingredient_price
+>>>>>>> 43999b2f992eea9c46e7bb4d1feaca9110a228cc
     
 
 
