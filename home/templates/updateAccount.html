@@ -1,34 +1,20 @@
-<<<<<<< HEAD
-{% extends 'base.html' %}
-=======
-<<<<<<< HEAD
-{% extends 'base.html' %}
-{% load static %}
->>>>>>> ad902e741cbdec090ca5a6ec603f29d29ab0f77f
-
-{% block content %}
-{% endblock %}
-
-<<<<<<< HEAD
-=======
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Account Info</title>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'updateAccount.css' %}">
 </head>
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1>Welcome {{ user.first_name }} {{ user.last_name }}<a href="/logout" class="btn btn-outline-primary" id="logout">Logout</a></h1>
+            <h1>Hello, {{ user.first_name }}! Let's Update Your Account<a href="/logout" class="btn btn-outline-primary">Logout</a></h1>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="/dashboard">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,47 +44,53 @@
             </nav>
         </div>
         <div class="row">
-                <h3>Pick Your Taco's</h3>
-            <div>
-              <table>
-                  <thead>
-                    <tr>
-                      <th>Taco</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for taco in tacos %}
-                    <tr>
-                      <form action="/taco" method="POST">
-                          {% csrf_token %}
-                          <td>{{ taco.taco_type }}</td>
-                          <td><input type="hidden" name="id" value="{{ taco.id }}">{{ taco.price }}</label></td>
-                          <td>
-                            <select name="quantity" id="quantity">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                          </select>
-                          </td>
-                          <td><button type="submit" class="btn btn-outline-danger">Order</button></td>
-                      </form>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-              </table>
-
-            </div>
+            <h2>Your Information</h2>
+            <br class="row" id="info">
+                <div class="form-group"><h5><span>First Name:</span> {{ user.first_name }}</h5></div>
+                <br>
+                <div class="form-group"><h5><span>Last Name:</span> {{ user.last_name }}</h5></div>
+                <br>
+                <div class="form-group"><h5><span>Email:</span> {{ user.email }}</h5></div>
+                <br>
+                <div class="form-group"><h5><span>Account Number:</span> {{ user.id }}</h5></div>
+                <br>
+        </div>
+        <div class="row">
+            <h2>Update Your Account</h2>
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                     <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="row">
+            <form action="/updateInfo" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter Your First Name">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Your Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Your Email Address">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter Your Password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm">Confirm Password:</label>
+                    <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Confirm Your Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
         </div>
     </div>
 </body>
 </html>
->>>>>>> 43999b2f992eea9c46e7bb4d1feaca9110a228cc
->>>>>>> ad902e741cbdec090ca5a6ec603f29d29ab0f77f

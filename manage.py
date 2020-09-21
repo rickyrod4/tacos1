@@ -5,7 +5,11 @@ import sys
 
 
 def main():
+<<<<<<< HEAD
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tacos.settings')
+=======
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MariosTacos.settings')
+>>>>>>> 43999b2f992eea9c46e7bb4d1feaca9110a228cc
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
